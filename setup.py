@@ -10,6 +10,7 @@ setup(
         ('share/ament_index/resource_index/packages',
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
+        ('share/' + package_name + '/launch', ['launch/cctv_parking_system.launch.py']),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
@@ -20,6 +21,10 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            'camera_publisher = turtle_parking_bot.camera_publisher:main',
+            'cctv_detector = turtle_parking_bot.cctv_detector:main',
+            'cctv_find_empty = turtle_parking_bot.cctv_find_empty:main',
+            'roi_test = turtle_parking_bot.select_roi_from_topic:main'
         ],
     },
 )
