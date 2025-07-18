@@ -8,7 +8,7 @@ class CenterController(Node):
     def __init__(self):
         super().__init__('center_controller')
 
-        # ✅ ParkingMonitor가 퍼블리시한 토픽을 구독함
+        # topic Sub
         self.subscription = self.create_subscription(
             EmptySpots,
             '/parking/empty_spots_msg',  
@@ -16,14 +16,14 @@ class CenterController(Node):
             10
         )
 
-        # ✅ MQTT 연결 초기화
+        # MQTT 연결 초기화
         self.mqtt_client = connect_mqtt()
         self.mqtt_client.loop_start()
 
         self.get_logger().info("CenterController Node started. Listening to /parking/empty_spots_msg")
 
     def spot_callback(self, msg):
-        zone_list = msg.spot_ids  # ✅ 이미 Python 리스트 형태임
+        zone_list = msg.spot_ids  # 이미 Python 리스트 형태임
 
         if not zone_list:
             self.get_logger().warn("수신된 spot_ids 리스트가 비어 있음")
