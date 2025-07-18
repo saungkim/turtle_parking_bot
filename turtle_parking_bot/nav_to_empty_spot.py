@@ -22,7 +22,7 @@ class ParkingSpotSubscriber(Node):
     
     def __init__(self):
         super().__init__('parking_spot_subscriber')
-        self.parking_spot = None
+        self.parking_spot = None    # center_node-----------
         self.subscription = self.create_subscription(
             String,
             '/parking/empty_spot_id',
@@ -31,9 +31,9 @@ class ParkingSpotSubscriber(Node):
         )
         self.get_logger().info('주차 위치 토픽 구독 시작: /parking/empty_spot_id')
 
-    def parking_spot_callback(self, msg):
+    def parking_spot_callback(self, msg): # center_node
         spot_name = msg.data.strip()
-        coords = get_parking_spot_map_coord(spot_name)
+        coords = get_parking_spot_map_coord(spot_name)  
 
         if coords is not None:
             pose = PoseStamped()
@@ -44,13 +44,13 @@ class ParkingSpotSubscriber(Node):
             self.parking_spot = pose
             self.get_logger().info(f'🅿️ 수신한 주차 위치 "{spot_name}" → 좌표: x={coords[0]:.2f}, y={coords[1]:.2f}')
         else:
-            self.get_logger().warn(f'❌ 유효하지 않은 주차 위치: "{spot_name}"')
+            self.get_logger().warn(f'❌ 유효하지 않은 주차 위치: "{spot_name}"')  
     
-    def get_parking_spot(self):
+    def get_parking_spot(self):  # center_node---------------------
         """현재 주차 위치 반환"""
         return self.parking_spot
 
-def load_pose_from_yaml(yaml_path: str, key: str) -> PoseStamped:
+def load_pose_from_yaml(yaml_path: str, key: str) -> PoseStamped:  # robot2
     """YAML 파일에서 PoseStamped 로딩"""
     try:
         with open(yaml_path, 'r') as f:
@@ -79,7 +79,7 @@ def load_pose_from_yaml(yaml_path: str, key: str) -> PoseStamped:
         print(f"❌ YAML 로딩 실패: {e}")
         raise
 
-def get_parking_spot_map_coord(spot_name: str):
+def get_parking_spot_map_coord(spot_name: str): # center_node
     """
     주차장 빈 칸 이름(예: 'A1')을 받아 맵 좌표(x, y)를 반환.
     없는 칸 이름 입력 시 None 반환
@@ -88,6 +88,7 @@ def get_parking_spot_map_coord(spot_name: str):
         "A1": (0.00814, 0.615),
         "A2": (-1.04, 0.577),
         "A3": (-1.69, 0.528),
+        
         "B1": (-2.91, -0.178),
         "B2": (-2.94, -0.569),
         "B3": (-2.96, -1.04)

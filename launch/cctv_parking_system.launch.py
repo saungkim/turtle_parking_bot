@@ -22,5 +22,11 @@ def generate_launch_description():
             executable='cctv_find_empty',
             name='cctv_find_empty',
             output='screen'
+        ),
+        Node(
+            package='turtle_parking_bot',
+            executable='center_controller',
+            name='center_controller',
+            output='screen'
         )
     ])
