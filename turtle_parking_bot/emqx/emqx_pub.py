@@ -24,11 +24,7 @@ def connect_mqtt() -> mqtt_client.Client:
     client.connect(broker, port)
     return client
 
-def publish(client):
-    message = {
-        "id": "robot1",
-        "status": 1
-    }
+def publish(client , message):
     msg_json = json.dumps(message)
     result = client.publish(topic, msg_json, retain=True)
     status = result[0]

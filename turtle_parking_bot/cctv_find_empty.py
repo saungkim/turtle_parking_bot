@@ -61,6 +61,7 @@ class ParkingMonitor(Node):
 
         results = self.model(self.latest_frame)[0]
         occupied_spots = []
+    
 
         for box in results.boxes:
             cls = int(box.cls[0])

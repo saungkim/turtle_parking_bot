@@ -3,6 +3,9 @@ from rclpy.node import Node
 from std_msgs.msg import String
 import subprocess
 from geometry_msgs.msg import PoseStamped, Pose
+import emqx.emqx_sub
+import time
+from std_msgs.msg import Header, String
 
 class TurtleFunction(Node):
     def __init__(self):
@@ -69,6 +72,10 @@ class TurtleFunction(Node):
         
         print("   ⚠️ 주차 위치 토픽 타임아웃")
         return None
+    
+    def emqx_run(callback_function):
+        emqx.emqx_sub.run(callback_function)
+
 
 def main(args=None):
     rclpy.init(args=args)
