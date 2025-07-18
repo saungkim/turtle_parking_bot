@@ -1,6 +1,6 @@
 import rclpy
 from rclpy.node import Node
-from sensor_msgs.msg import CompressedImage
+from sensor_msgs.msg import Image
 from cv_bridge import CvBridge
 import cv2
 from ultralytics import YOLO
@@ -16,7 +16,7 @@ class YOLOVisualizer(Node):
         # 브리지 설정 및 이미지 구독
         self.bridge = CvBridge()
         self.subscription = self.create_subscription(
-            CompressedImage,
+            Image,
             '/usb_camera/image_raw',
             self.image_callback,
             10
