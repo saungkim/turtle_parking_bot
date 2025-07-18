@@ -23,7 +23,7 @@ class Turtle2(Node):
     def __init__(self):
         super().__init__('parking_spot_subscriber')
         self.parking_spot = None
-        self.subscription = self.create_subscription(
+        self.subscription = self.create_subscription( # todo : change to mqtt 
             String,
             '/parking/empty_spot_id',
             self.parking_spot_callback,
